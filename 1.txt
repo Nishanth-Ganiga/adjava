@@ -1,0 +1,44 @@
+Index.html
+
+<html>
+ <head><title>login</title> </head>
+ <body>
+ <form action="loginServlet" method="get">
+ <fieldset>
+ <legend>Login Form</legend>
+ Username:<input type="text" name="username"/><br/></br>
+ Password: <input type="password" name="pass"/><br/></br>
+ <input type="submit" value="send"/>
+ <input type="reset" value="clear"/>
+ </fieldset>
+ </form>
+ </body>
+</html>
+
+loginServlet.java
+
+mport java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+public class loginServlet extends HttpServlet {
+ @Override
+ protected void doGet(HttpServletRequest request, HttpServletResponse response)
+ throws ServletException, IOException {
+ PrintWriter out = response.getWriter();
+ String name=request.getParameter("username");
+ String secretword=request.getParameter("pass");
+ out.println("<html>");
+ out.println("<head><title>Servlet</title></head>"); 
+ out.println("<body>");
+ out.println("<fieldset>");
+ out.println("<h2>You have Entered</h2>");
+ out.println("<p>Name: " + name + "</p>");
+ out.println("<p> Password: " +secretword+"</p>");
+ out.println("</fieldset>");
+ out.println("</body>");
+ out.println("</html>");
+ }
+}

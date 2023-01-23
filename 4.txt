@@ -1,0 +1,70 @@
+Index.html
+
+
+<html>
+ <head>
+ <title>cookie example</title>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width">
+ </head>
+ <body>
+ <form method="post" action="Validate">
+ <fieldset>
+ <h2> Setting cookie </h2>
+ <h3>Name: <input type="text" name="user" /></h3>
+ <h3>Password:<input type="password" name="pass" /></h3>
+ <input type="submit" value="submit">
+ </fieldset>
+ </form>
+ </body>
+</html> 
+
+Validate.java
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+public class Validate extends HttpServlet {
+ @Override
+ protected void doPost(HttpServletRequest request, HttpServletResponse response)
+ throws ServletException, IOException {
+ 
+ String name = request.getParameter("user");
+ String pass = request.getParameter("pass");
+ 
+ if(pass.equals("1234"))
+ {
+ Cookie ck = new Cookie("username",name);
+ response.addCookie(ck);
+ 
+ response.sendRedirect("First");
+ }
+ }
+}
+
+
+
+First.java
+
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+public class First extends HttpServlet {
+ protected void doGet(HttpServletRequest request, HttpServletResponse response)
+ throws ServletException, IOException {
+ 
+ PrintWriter out = response.getWriter();
+ //read cookie
+ Cookie[] cks = request.getCookies();
+ out.println("Welcome "+cks[0].getValue());
+ }
+}
